@@ -3,9 +3,7 @@
 
 #include <stddef.h>
 
-/**
- * Поддерживаемые архитектуры исполняемых файлов
- */
+/** Поддерживаемые архитектуры ELF-файлов */
 typedef enum {
   ARCH_UNKNOWN,
   ARCH_ANY,
@@ -15,36 +13,51 @@ typedef enum {
   ARCH_AARCH64
 } Architecture;
 
-/**
- * Поддерживаемые форматы выходного отчета
- */
+/** Формат выходного отчета */
 typedef enum {
   REPORT_UNKNOWN,
   REPORT_TXT,
   REPORT_PDF
 } ReportFormat;
 
-/**
- * Конфигурация запуска приложения
- */
+/** Параметры запуска программы */
 typedef struct {
-  /** Директория для сканирования */
   char *directory;
-
-  /** Архитектура для фильтрации файлов */
   Architecture architecture;
-
-  /** Формат выходного отчета */
   ReportFormat reportFormat;
-
-  /** Список библиотек для поиска */
   char **libraries;
-
-  /** Количество библиотек в списке */
   size_t libraryCount;
-
-  /** Флаг вывода справки */
   int showHelp;
 } AppConfig;
+
+/** Информация, прочитанная из одного ELF-файла */
+typedef struct {
+  Architecture architecture;
+  int executable;
+  char *soname;
+  char **needed;
+  size_t neededCount;
+} ElfInfo;
+
+/** Одна библиотека и исполняемые файлы, которые ее используют */
+typedef struct {
+  char *name;
+  Architecture architecture;
+  char **executables;
+  size_t count;
+  size_t capacity;
+} LibraryResult;
+
+/** Массив результатов по библиотекам и архитектурам */
+typedef struct {
+  LibraryResult *items;
+  size_t count;
+} LibraryResults;
+
+/** Счетчики сканирования для отчета */
+typedef struct {
+  size_t filesChecked;
+  size_t elfExecutables;
+} ScanStats;
 
 #endif
