@@ -1,0 +1,10 @@
+.git/
+.gitignore
+build/
+bldd
+execs/
+reports/
+report.txt
+docs/
+tests/
+*.o

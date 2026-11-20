@@ -15,10 +15,7 @@ int parse_args(int argc, char *argv[], AppConfig *config) {
   config->libraryCount = 0;
   config->showHelp = 0;
 
-  static struct option longOptions[] = {
-      {"help", no_argument, NULL, 'h'},
-      {NULL, 0, NULL, 0}
-  };
+  static struct option longOptions[] = {{"help", no_argument, NULL, 'h'}, {NULL, 0, NULL, 0}};
 
   int option;
 
@@ -81,33 +78,17 @@ void print_help() {
 }
 
 static Architecture parse_architecture(const char *value) {
-  if (strcmp(value, "x86") == 0) {
-    return ARCH_X86;
-  }
-
-  if (strcmp(value, "x86_64") == 0) {
-    return ARCH_X86_64;
-  }
-
-  if (strcmp(value, "armv7") == 0) {
-    return ARCH_ARMV7;
-  }
-
-  if (strcmp(value, "aarch64") == 0) {
-    return ARCH_AARCH64;
-  }
+  if (strcmp(value, "x86") == 0) return ARCH_X86;
+  if (strcmp(value, "x86_64") == 0) return ARCH_X86_64;
+  if (strcmp(value, "armv7") == 0) return ARCH_ARMV7;
+  if (strcmp(value, "aarch64") == 0) return ARCH_AARCH64;
 
   return ARCH_UNKNOWN;
 }
 
 static ReportFormat parse_report_format(const char *value) {
-  if (strcmp(value, "txt") == 0) {
-    return REPORT_TXT;
-  }
-
-  if (strcmp(value, "pdf") == 0) {
-    return REPORT_PDF;
-  }
+  if (strcmp(value, "txt") == 0) return REPORT_TXT;
+  if (strcmp(value, "pdf") == 0) return REPORT_PDF;
 
   return REPORT_UNKNOWN;
 }
